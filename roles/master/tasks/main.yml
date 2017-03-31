@@ -1,0 +1,27 @@
+- name: Installing the Prerequisite packages for Master Node
+  yum:  name={{ item }} state=installed
+  with_items:
+      - docker
+      - docker-logrotate
+      - kubernetes
+      - etcd
+      - flanneld
+
+- name: Configuring the kubernetes Master server
+  copy: src={{ item.src }} dest={{ item.dest }}
+  with_items:
+      - { src: "kubernetes-config", dest: "/etc/kubernetes/config" }
+      - { src: "flannel-config", dest: "/etc/sysconfig/flanneld" }
+      - { src: "api-server-config", dest: "/etc/kubernetes/apiserver" }
+      - { src: "controller-manager-config", dest: "/etc/kubernetes/controller-manager" }
+
+- name: Starting the services required for the Master Agent
+  service: name={{ item }} state=started enabled=true
+  with_items:
+      - etcd 
+      - kube-apiserver 
+      - kube-controller-manager 
+      - kube-scheduler
+
+- name: Defining the flannel network configuration
+  shell: etcdctl mk /atomic.io/network/config '{"Network":"{{ network-subnet }}"}'  

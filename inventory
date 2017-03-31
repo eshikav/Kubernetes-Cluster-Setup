@@ -1,0 +1,13 @@
+#This is the inventory foile for the Kubernetes Cluster configuration 
+#kubernetes-master-ip is the ip of the master kubernetes cluster nodes
+#kubernetes-minion-ip is the ip of the slave kubernetes cluster nodes
+#ansible_ssh_host is the ip address off the host
+#hostname is the desired name of the host.
+
+[master]
+<kubernetes-master-ip> ansible_ssh_host="" hostname=""
+
+
+[minions]
+<kubernetes-minion-ip> ansible_ssh_host="" hostname=""
+

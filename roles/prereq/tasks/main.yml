@@ -1,0 +1,7 @@
+- name: setting the hostname of the server
+  hostname: name={{ hostname }}
+- name: Creating the hosts file for the DNS resolution
+  template: src=hosts dest=/etc/hosts
+
+- name: Turning of the Firewall
+  service: name=firewalld state=stopped enabled=false
