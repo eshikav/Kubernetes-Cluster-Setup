@@ -1,7 +1,11 @@
 - hosts: master
   roles:
-    - master
+      - master
+  tags:
+      - master 
 
 - hosts: minions
   roles:
-    - minion
+      - minion
+  tags:
+      - minion
